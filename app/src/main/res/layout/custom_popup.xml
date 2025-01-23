@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Titre du pop-up -->
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Détails du Scan"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="16dp" />
+
+
+    <!-- Adresse IP -->
+    <TextView
+        android:id="@+id/ipAddressTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="IP : "
+        android:textColor="@color/black"
+
+        android:textSize="16sp"
+        android:paddingBottom="8dp" />
+
+    <!-- Données cryptées -->
+    <TextView
+        android:id="@+id/encryptedDataTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Données Cryptées : "
+        android:textSize="16sp"
+        android:textColor="@color/black"
+
+        android:paddingBottom="16dp" />
+
+    <!-- Boutons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+
+        android:layout_marginEnd="8dp" />
+
+        <Button
+            android:id="@+id/deleteButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/redd"
+            android:text="Supprimer"/>
+
+        <Button
+            android:id="@+id/reportButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Reporter"
+            android:backgroundTint="@color/yellow"
+            android:textColor="@color/black"
+
+            android:layout_marginStart="8dp" />
+    </LinearLayout>
+</LinearLayout>

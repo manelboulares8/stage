@@ -1,0 +1,12 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Couleur de fond jaune pastel -->
+    <solid android:color="#FFFCED" />
+
+    <!-- Bordure noire fine -->
+    <stroke
+        android:width="2dp"
+        android:color="@android:color/black" />
+
+    <!-- Coins arrondis -->
+    <corners android:radius="13dp" />
+</shape>
