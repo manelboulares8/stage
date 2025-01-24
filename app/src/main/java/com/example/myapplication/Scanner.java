@@ -48,11 +48,11 @@ public class Scanner extends AppCompatActivity {
         TextView aboutus =findViewById(R.id.aboutus);
 
         scanButton.setOnClickListener( new View.OnClickListener(){
-        @Override
-        public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 
-            startQRScanner();
-        }
+                startQRScanner();
+            }
         });
 
 
@@ -85,7 +85,7 @@ public class Scanner extends AppCompatActivity {
         intentIntegrator.initiateScan();
     }
 
- // aafficher contenu du code QR !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // aafficher contenu du code QR !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
    /* @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -116,70 +116,70 @@ public class Scanner extends AppCompatActivity {
     // Afficher texte et key et  hsh sans decodage !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
-   @Override
-   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-       super.onActivityResult(requestCode, resultCode, data);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-       // Gérer le résultat du scan du code QR
-       IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-       if (result != null) {
-           if (result.getContents() != null) {
-               // Le code QR a été scanné avec succès, on obtient sa valeur
-               String scannedValue = result.getContents();
+        // Gérer le résultat du scan du code QR
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            if (result.getContents() != null) {
+                // Le code QR a été scanné avec succès, on obtient sa valeur
+                String scannedValue = result.getContents();
 
-               try {
-                   // Supposons que le texte est dans un format similaire à :
-
-
-                   String text = EncryptionBase64Service.extractData(scannedValue, "<TXT>", "</TXT>");
-                   String hash = EncryptionBase64Service.extractData(scannedValue, "<HSH>", "</HSH>");
-                   String key = EncryptionBase64Service.extractData(scannedValue, "<KEY>", "</KEY>");
+                try {
+                    // Supposons que le texte est dans un format similaire à :
 
 
-                   String DecryptedText=EncryptionBase64Service.decrypt(text,IV,SECRET_KEY);
-                   String DecryptedHash=EncryptionBase64Service.decrypt(hash,IV,SECRET_KEY);
-                   String DecryptedKey=EncryptionBase64Service.decrypt(key,IV,SECRET_KEY);
-
-                   if(RSAUtil.verify(DecryptedText,DecryptedHash,DecryptedKey)){
-                       Intent intent = new Intent(Scanner.this, valide.class);
-                       intent.putExtra("DECRYPTED_TEXT", DecryptedText); // Passer le texte déchiffré
-                       startActivity(intent);
-                       DBHelper dbHelper = new DBHelper(this);
-                       String ipAddress = getLocalIpAddress();
-
-                       // Vérifier la validité du QR code (exemple de validation)
-                       boolean isValid = true;
-
-                       // Obtenir la date du scan
-                       String scanDate = java.text.DateFormat.getDateTimeInstance().format(new java.util.Date());
-                       dbHelper.insertScanRecord(ipAddress, scanDate, isValid, DecryptedText);
+                    String text = EncryptionBase64Service.extractData(scannedValue, "<TXT>", "</TXT>");
+                    String hash = EncryptionBase64Service.extractData(scannedValue, "<HSH>", "</HSH>");
+                    String key = EncryptionBase64Service.extractData(scannedValue, "<KEY>", "</KEY>");
 
 
-                   }
-                   else{
-                       Intent intent = new Intent(Scanner.this, invalide.class);
-                       startActivity(intent);
-                       DBHelper dbHelper = new DBHelper(this);
-                       String ipAddress = getLocalIpAddress();
-                       boolean isValid = false;
-                       // Vérifier la validité du QR code (exemple de validation)
+                    String DecryptedText=EncryptionBase64Service.decrypt(text,IV,SECRET_KEY);
+                    String DecryptedHash=EncryptionBase64Service.decrypt(hash,IV,SECRET_KEY);
+                    String DecryptedKey=EncryptionBase64Service.decrypt(key,IV,SECRET_KEY);
 
-                       // Obtenir la date du scan
-                       String scanDate = java.text.DateFormat.getDateTimeInstance().format(new java.util.Date());
-                       dbHelper.insertScanRecord(ipAddress, scanDate, isValid, DecryptedText);
+                    if(RSAUtil.verify(DecryptedText,DecryptedHash,DecryptedKey)){
+                        Intent intent = new Intent(Scanner.this, valide.class);
+                        intent.putExtra("DECRYPTED_TEXT", DecryptedText); // Passer le texte déchiffré
+                        startActivity(intent);
+                        DBHelper dbHelper = new DBHelper(this);
+                        String ipAddress = getLocalIpAddress();
 
-                   }
+                        // Vérifier la validité du QR code (exemple de validation)
+                        boolean isValid = true;
+
+                        // Obtenir la date du scan
+                        String scanDate = java.text.DateFormat.getDateTimeInstance().format(new java.util.Date());
+                        dbHelper.insertScanRecord(ipAddress, scanDate, isValid, DecryptedText);
 
 
-               } catch (Exception e) {
-                   e.printStackTrace();
-                   Toast.makeText(this, "Error processing QR code", Toast.LENGTH_SHORT).show();
-               }
-           } else {
-               Toast.makeText(this, "Scan failed or canceled", Toast.LENGTH_SHORT).show();
-           }
-       }
-   }
+                    }
+                    else{
+                        Intent intent = new Intent(Scanner.this, invalide.class);
+                        startActivity(intent);
+                        DBHelper dbHelper = new DBHelper(this);
+                        String ipAddress = getLocalIpAddress();
+                        boolean isValid = false;
+                        // Vérifier la validité du QR code (exemple de validation)
+
+                        // Obtenir la date du scan
+                        String scanDate = java.text.DateFormat.getDateTimeInstance().format(new java.util.Date());
+                        dbHelper.insertScanRecord(ipAddress, scanDate, isValid, DecryptedText);
+
+                    }
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(this, "Error processing QR code", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "Scan failed or canceled", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 /*
     // Méthode pour extraire le contenu entre deux balises
     private String extractData(String input, String startTag, String endTag) {
@@ -246,7 +246,6 @@ public class Scanner extends AppCompatActivity {
 
 
 }
-
 
 
 

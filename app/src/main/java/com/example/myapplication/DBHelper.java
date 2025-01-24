@@ -9,13 +9,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "aigleDB";
-    private static final int DATABASE_VERSION = 3; // Incrémentation de la version de la base de données
+    private static final int DATABASE_VERSION = 5; // Incrémentation de la version de la base de données
     public static final String TABLE_USERS = "users";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_EMAIL = "email";
     public static final String COLUMN_PASSWORD = "password";
 
-    // table historique
     public static final String TABLE_HISTORIQUE = "historique";
     public static final String COLUMN_IP_ADDRESS = "ip_address";
     public static final String COLUMN_SCAN_DATE = "scan_date";
@@ -30,12 +29,14 @@ public class DBHelper extends SQLiteOpenHelper {
             + COLUMN_PASSWORD + " TEXT);";
 
     // SQL statement to create historique table
+    // SQL statement to create historique table
     private static final String CREATE_TABLE_HISTORIQUE = "CREATE TABLE " + TABLE_HISTORIQUE + "("
             + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + COLUMN_IP_ADDRESS + " TEXT, "
             + COLUMN_SCAN_DATE + " TEXT, "
             + COLUMN_IS_VALID + " INTEGER, "
-            + COLUMN_ENCRYPTED_DATA + " TEXT);";
+            + COLUMN_ENCRYPTED_DATA + " TEXT, "
+            + COLUMN_REPORT + " INTEGER DEFAULT 0);"; // Ajout de la colonne `report`
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -50,7 +51,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion < 2) {
+        if (oldVersion < 6) {
             // Ajouter la colonne `report` à la table `historique`
             db.execSQL("ALTER TABLE " + TABLE_HISTORIQUE + " ADD COLUMN " + COLUMN_REPORT + " INTEGER DEFAULT 0;");
         }
@@ -84,14 +85,14 @@ public class DBHelper extends SQLiteOpenHelper {
     public void insertScanRecord(String ipAddress, String scanDate, boolean isValid, String encryptedData) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-       // db.execSQL("DELETE FROM " + TABLE_HISTORIQUE);
+        // db.execSQL("DELETE FROM " + TABLE_HISTORIQUE);
 
         ContentValues values = new ContentValues();
         values.put(COLUMN_IP_ADDRESS, ipAddress);
         values.put(COLUMN_SCAN_DATE, scanDate);
         values.put(COLUMN_IS_VALID, isValid ? 1 : 0);
         values.put(COLUMN_ENCRYPTED_DATA, encryptedData);
-
+        values.put(COLUMN_REPORT, 0);
         // Insérer l'enregistrement dans la table historique
         db.insert(TABLE_HISTORIQUE, null, values);
         db.close();
@@ -117,5 +118,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
         db.update(TABLE_HISTORIQUE, values, COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
         db.close();
+    }
+
+    public Cursor getReportedHistorique() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.query(TABLE_HISTORIQUE, null, COLUMN_REPORT + " = ?", new String[]{"1"}, null, null, null);
     }
 }

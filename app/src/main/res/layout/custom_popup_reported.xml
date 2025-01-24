@@ -62,21 +62,11 @@
 
         <Button
             android:id="@+id/deleteButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="286dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:backgroundTint="@color/redd"
-            android:text="Supprimer"/>
+            android:text="Supprimer" />
 
-        <Button
-            android:id="@+id/reportButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Signaler"
-            android:backgroundTint="@color/yellow"
-            android:textColor="@color/black"
-
-            android:layout_marginStart="8dp" />
     </LinearLayout>
 </LinearLayout>

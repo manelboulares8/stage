@@ -33,6 +33,15 @@ public class historique extends AppCompatActivity {
                 showLogoutConfirmation();
             }
         });
+
+        ImageView signals =findViewById(R.id.signal);
+        signals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(historique.this, historiqueSignal.class);
+                startActivity(intent);
+            }
+        });
     }
     private void loadHistorique() {
         // Conteneur pour afficher les lignes dynamiques
@@ -125,6 +134,8 @@ public class historique extends AppCompatActivity {
                     // Action de déconnexion
                     Toast.makeText(this, "Déconnexion réussie", Toast.LENGTH_SHORT).show();
                     finish(); // Fermer l'activité
+                    Intent intent = new Intent(historique.this, Scanner.class);
+                    startActivity(intent);
                 })
                 .setNegativeButton("Non", (dialog, which) -> dialog.dismiss())
                 .show();
@@ -182,13 +193,14 @@ public class historique extends AppCompatActivity {
         reportButton.setOnClickListener(v -> {
             new AlertDialog.Builder(this)
                     .setTitle("Confirmation")
-                    .setMessage("Êtes-vous sûr de vouloir reporter cet élément ?")
+                    .setMessage("Êtes-vous sûr de vouloir signaler ce scan ?")
                     .setPositiveButton("Oui", (dialogInterface, which) -> {
                         // Mettre à jour le champ `report` dans la base de données
                         DBHelper dbHelper = new DBHelper(this);
                         dbHelper.reportHistorique(id);
+                        dialog.dismiss();
 
-                        Toast.makeText(this, "Reporté", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Signalé", Toast.LENGTH_SHORT).show();
                     })
                     .setNegativeButton("Non", (dialogInterface, which) -> dialogInterface.dismiss())
                     .show();
