@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">My QR Scanner</string>
     <string name="logo_description">Logo de lapplication</string>
 
 </resources>

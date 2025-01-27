@@ -35,8 +35,8 @@
 
     <ImageView
         android:id="@+id/user"
-        android:layout_width="33dp"
-        android:layout_height="36dp"
+        android:layout_width="23dp"
+        android:layout_height="35dp"
         android:layout_marginStart="312dp"
         android:layout_marginTop="24dp"
         android:contentDescription="@string/logo_description"
@@ -104,10 +104,10 @@
 
     <ImageView
         android:id="@+id/retourner"
-        android:layout_width="50dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="152dp"
-        android:layout_marginTop="632dp"
+        android:layout_width="35dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="636dp"
         android:contentDescription="@string/logo_description"
         android:src="@drawable/retourner"
         app:layout_constraintStart_toStartOf="parent"

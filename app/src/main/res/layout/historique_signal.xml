@@ -46,11 +46,11 @@
 
     <ImageView
         android:id="@+id/logout"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="23dp"
+        android:layout_height="25dp"
         android:layout_marginLeft="244dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="36dp"
         android:contentDescription="@string/logo_description"
         android:src="@drawable/logout"
         app:layout_constraintBottom_toTopOf="@id/logonom2"
@@ -100,8 +100,8 @@
 
     <ImageView
         android:id="@+id/retourner"
-        android:layout_width="35dp"
-        android:layout_height="34dp"
+        android:layout_width="28dp"
+        android:layout_height="31dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:contentDescription="@string/logo_description"
